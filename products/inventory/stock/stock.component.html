@@ -1,0 +1,47 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3>Lista de Productos</h3>
+
+    <div class="box-tools pull-right">
+    	
+      <!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+      
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="box-body">
+  <div class="table-responsive">
+    <table class="table no-margin">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Nombre</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Accion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products" >
+          <td>{{product.code}}</td>
+          <td>{{product.name}}</td>
+          <td>{{product.amount}}</td>
+          <td>{{product.price}}</td>
+          <td><button class="btn btn-success" (click)="sendId()" >Modificar</button></td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+  
+</div>
+
+<button (click)="irAcarrito()" > Ir A Carrito</button>
+<button (click)="sendId()" > SendID</button>
+
+<!--<app-product-form > </app-product-form>-->

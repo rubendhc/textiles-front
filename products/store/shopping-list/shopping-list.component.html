@@ -1,0 +1,67 @@
+
+<div class="box-body">
+    <div class="table-responsive">
+        <table class="table no-margin">
+     
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Cantidad Agregada</th>
+                    <th>Precio Unitario</th>
+                    <th>Precio Total</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of data.storage">
+                
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+
+                    <!--/***********************************************************************/-->
+                    <nav aria-label="Page navigation example" >
+
+                      <ul class="pagination" >
+                        <li class="page-item">
+                            <span aria-hidden="true" 
+                                  class="page-link" 
+                                  aria-label="Previous" 
+                                  (click)="decrementAmount(product)">-</span>
+                        </li>
+
+                        <li class="page-item"  (click)="calculateTotal(product)">
+                          <input (keyup)="onkey($event, product)" 
+                                 id="cantProduct"
+                                 class="page-link"  
+                                 name="cantProduct" 
+                                 value={{product.cantProduct}} ></li>
+
+                        <li class="page-item">
+                            <span aria-hidden="true" 
+                                  class="page-link" 
+                                  aria-label="Next"
+                                  (click)="incrementAmount(product)">+</span>
+                      
+                        </li>
+                      </ul>
+                    </nav>
+
+
+
+                    <td>{{product.price}}</td>
+                    <td>{{product.totalPrice}}</td>
+                    <td><button type="button" class="btn btn-danger" (click)="deleteItem(product)" >Borrar</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+  <!--<button class="btn btn-success" (shopList)="sendBill()">Generar Factura</button>-->
+</div>
+
+<app-product-bill [shopList]="productShop"> </app-product-bill>
+
+
+
+

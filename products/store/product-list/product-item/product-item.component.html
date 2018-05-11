@@ -1,0 +1,55 @@
+<!--<a
+href="#"
+class="list-group-item clearfix"
+>
+</a>
+-->
+<div class="list-group-item clearfix">
+  <span class="pull-right">
+    <img
+    [src]="product.imagePath"
+    alt="" class="img-responsive"
+    style="max-height: 100px;"/>
+  </span>
+
+  <div class="pull-left">
+    <h4 class="list-group-item-heading" >{{ product.name }}</h4>
+    <p class="list-group-item-text">Cantidad D: {{ product.amount }}</p>
+    <p class="list-group-item-text">Precio: {{ product.price }}</p>
+
+    <!--/***********************************************************************/-->
+    <nav aria-label="Page navigation example">
+
+      <ul class="pagination">
+        <li class="page-item">
+            <span aria-hidden="true" 
+                  class="page-link" 
+                  aria-label="Previous" 
+                  (click)="decrementAmount()">-</span>
+        </li>
+
+        <li class="page-item">
+          <input (keyup)="onkey($event, product)" 
+                 id="cantProduct"
+                 class="page-link"  
+                 name="cantProduct" 
+                 value={{cantProduct}}></li>
+
+        <li class="page-item">
+            <span aria-hidden="true" 
+                  class="page-link" 
+                  aria-label="Next"
+                  (click)="incrementAmount()">+</span>
+      
+        </li>
+      </ul>
+    </nav>
+
+    <button type="button" class="btn btn-primary" (click) = "llamarEvento(product)">Añadir</button>
+  </div>
+</div>
+
+
+
+
+<!--<app-product-detail [product]="productSelected"></app-product-detail>-->
