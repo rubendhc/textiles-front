@@ -1,11 +1,6 @@
 
 
-<div class="row">
-  <div class="col-xs-12">
-    <button class="btn btn-success">Nuevo Producto</button>
-  </div>
-</div>
-<hr />
+
 <div class="row">
 
   <div *ngFor="let productid of products" class="col-xs-12">
@@ -19,13 +14,17 @@
 
   </app-product-item>
 
+  
+<span class="badge badge-success">{{ contCarrito }}</span>
+
+
 
   </div>
 </div>
 
 
 
-<button  (click)="irAcarrito()">carrito</button>
+
 
   
  

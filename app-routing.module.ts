@@ -11,23 +11,38 @@ import { ShoppingListComponent } from './products/store/shopping-list/shopping-l
 import { StockComponent } from './products/inventory/stock/stock.component';
 import { ProductFormComponent } from './products/inventory/stock/product-form/product-form.component';
 import { StoreComponent } from './products/store/store.component';
+import { InventoryComponent } from './products/inventory/inventory.component';
 import { Product } from './products/product.model';
 
+import { UserComponent } from './user/user.component';
+import { SignInComponent } from './user/sign-in/sign-in.component';
+import { SignUpComponent } from './user/sign-up/sign-up.component';
 
-const routes: Routes = [ { path: 'products', component: ProductsComponent },
-                         { path: 'store', component: StoreComponent, 
-                         children: [
+
+const routes: Routes = [ 
+                          //Rutas componete products (store y inventory)
+                         { path: 'products', component: ProductsComponent, 
+                           children: 
+                           [
+                             { path: 'store', component: StoreComponent, 
+                             children: [
                              {path: 'product-list', component: ProductListComponent},
                              {path: 'shopping-list', component: ShoppingListComponent},
                              {path: 'product-detail', component: ProductDetailComponent},
                          ] },
-                         { path: 'product-list', component: ProductListComponent },
-                         //{ path: 'product-detail', component: ProductDetailComponent },
-                         //{ path: 'product-item', component: ProductItemComponent },
                          { path: 'product-bill', component: ProductBillComponent },
-                         { path: 'shopping-list', component: ShoppingListComponent},
                          { path: 'product-form', component: ProductFormComponent },
-                         { path: 'stock', component: StockComponent }
+                         { path: 'stock', component: StockComponent },
+                         { path: 'inventory', component: InventoryComponent },
+
+                           ] },
+                         
+                         //Rutas compoente user  login y registro 
+                         { path: 'signup', component: UserComponent ,
+                          children: [{path: '', component: SignUpComponent}]},
+                         { path: 'login', component: UserComponent ,
+                          children: [{path: '', component: SignInComponent}]}
+
                        ];
 
 @NgModule({

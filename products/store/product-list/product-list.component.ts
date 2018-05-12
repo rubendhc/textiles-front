@@ -22,6 +22,8 @@ export class ProductListComponent implements OnInit {
 
   productSelected: Product;
 
+  contCarrito: number;
+
   @Input() productItem: Product;
  
 
@@ -31,27 +33,39 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
+    this.productArray = this.data.products;
+    this.contCarrito= this.productArray.length; //Cantidad de Productos guardados al contador
   }
+  
+
+  /*recibirItem(product: Product): void{
+
+     //console.log(this.productArray.indexOf(product));
+    // //Validación para no agregar el dato dos veces en la tabla Shopping
+     if(!this.productExist(product, this.productArray)){
+        this.productArray.push(product);  
+     }
+
+     console.log(this.productArray);
+  }*/
 
   recibirItem(product: Product): void{
-
-    this.data.recibirItem(product as Product);
-    // let pos = this.productArray.indexOf(product);
-
-
-    // //Validación para no agregar el dato dos veces en la tabla Shopping
-    // if(!this.productArray[pos]){
-    //    this.productArray.push(product);  
-    // }
-
-    // console.log(this.productArray);
+    
+    if(this.productArray.length > 0)
+    {
+      if(!(this.validarP(product)))
+      {
+        this.productArray.push(product);
+        this.contCarrito = this.productArray.length;
+      } 
+    }else{
+      this.productArray.push(product);
+      this.contCarrito = this.productArray.length;
+    }
   }
 
 
-irAcarrito(): void{
-    this.data.storage = this.productArray;
-    this.router.navigate(['/shopping-list/']);
-}
+
 
 
   getProducts(): void {
@@ -62,6 +76,33 @@ irAcarrito(): void{
   sendId(){
     this.productService.saveIds([1,2,3,4,5]);
   }
+
+
+  productExist(productIn: Product, products: Array<Product>): boolean{
+
+     for (let p of products) {
+       if(p.id === productIn.id){
+         return true;
+       }else{
+         return false;
+       }
+     }
+  }
+
+  public validarP(product: Product): boolean{
+
+    let valid: boolean;
+    for (let i = 0; i < this.productArray.length; i++) 
+    {
+      if(this.productArray[i].id == product.id)
+      {
+       this.productArray[i].cantProduct += product.cantProduct;
+       valid = true;
+      }
+    }
+    return valid;
+  }
+
 
  
  

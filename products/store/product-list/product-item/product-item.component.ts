@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, ElementRef } from '@ang
 
 import { Product } from '../../../product.model';
 
+
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
@@ -50,10 +51,18 @@ export class ProductItemComponent implements OnInit {
   }
   
   //Evento para actualizar cantidad de producto sin añadir aún en el objeto Product
-  onkey(event: any, product: Product){
-    this.selectedItem = product;
-    this.cantProduct = event.target.value;
-    //console.log(this.cantProduct);
+  // onkey(event: any, product: Product){
+  //   this.selectedItem = product;
+  //   this.cantProduct = event.target.value;
+  //   //console.log(this.cantProduct);
+  // }
+
+
+  onkey(event: Event){
+
+    //La función del operador "+" es convertir un dato de String a Number
+    let cantU = +(<HTMLInputElement>event.target).value; 
+    this.cantProduct = cantU;
   }
 
 

@@ -24,6 +24,8 @@ import { ProductFormComponent } from './products/inventory/stock/product-form/pr
 import { Data } from './data';
 import { StoreComponent } from './products/store/store.component';
 import { InventoryComponent } from './products/inventory/inventory.component';
+import { SignInComponent } from './user/sign-in/sign-in.component';
+import { SignUpComponent } from './user/sign-up/sign-up.component';
 
 
 
@@ -44,6 +46,8 @@ import { InventoryComponent } from './products/inventory/inventory.component';
     StockComponent,
     ProductFormComponent,
     InventoryComponent,
+    SignInComponent,
+    SignUpComponent,
     //BarChartDemoComponent
 
 

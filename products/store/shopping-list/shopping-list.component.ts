@@ -18,7 +18,7 @@ export class ShoppingListComponent implements OnInit {
   productSelected: Product;
   
 
-  //productShop: Array<Product>;
+  productShop: Array<Product>;
   //@Output() AddedBill = new EventEmitter<Array<Product>>();
   
   constructor(private route: ActivatedRoute, private productService: ProductService, private data: Data) { 
@@ -36,8 +36,8 @@ export class ShoppingListComponent implements OnInit {
      //console.log(this.id[1]);
      //console.log(this.id[2]);
      
-     // console.log(this.data.storage);
-     //this.data.storage = this.data.storage;
+     // console.log(this.data.products);
+     this.productShop = this.data.products;
 
   }
 
@@ -80,14 +80,14 @@ export class ShoppingListComponent implements OnInit {
 
   //Acciones de la Tabla
   deleteItem(product: Product):void{
-    let pos = this.data.storage.indexOf(product);
-    this.data.storage.splice(pos, 1);
-    console.log(this.data.storage);
+    let pos = this.productShop.indexOf(product);
+    this.productShop.splice(pos, 1);
+    console.log(this.productShop);
    
   }
 
   // sendBill():void {
-  //   this.AddedBill.emit(this.data.storage);
+  //   this.AddedBill.emit(this.productShop);
   // }
 
   stringToArry(ids: string): number[]{
