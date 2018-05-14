@@ -1,8 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { Product } from '../../../product.model';
+import { Category } from '../../categories/category.model';
 
 import { ProductService } from '../../../product-service/product.service';
+import { CategoryService } from '../../../product-service/category.service';
 
 @Component({
   selector: 'app-product-form',
@@ -12,52 +17,54 @@ import { ProductService } from '../../../product-service/product.service';
 
 export class ProductFormComponent implements OnInit {
 
-  model = new Product();
-  submitted = false;
-  products: Product[];
-
+  product= new Product();
+  categories: Category[];
+  enableCreate: boolean = true;
+  
   //@Input() productId: Product;
 
   
 
-  constructor(private productService: ProductService) { }
+  constructor( private productService: ProductService, 
+               private route: ActivatedRoute,
+               private categoryService: CategoryService) { }
 
   ngOnInit() {
   	//this.getProducts();
-    //this.model = this.productId;
-    this.resibirIds();
+    //this.product = this.productId;
+    this.getProduct();
+    this. getCategories();
+
+    const id = +this.route.snapshot.paramMap.get('id');
+    console.log(id);
   }
 
-  onSubmit(): void {
-  	this.submitted = true;
-  }	
-
-  newProduct(){
-  	this.model = new Product();
-  	console.log(this.model);
-  	this.add(this.model);
-  	
+  
+  getProduct(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.productService.getProduct(id)
+      .subscribe(product => this.product = product);
   }
-/*
-  getProducts(): void{
-	this.productService.getProducts().subscribe(products => this.products = products);
-}*/
 
-  add(product: Product): void{
 
-	if(!product) { return;}
-	  this.productService.addProduct(product).subscribe(product=>{
-		this.products.push(product);
+ 
+  save(product: Product): void {
     console.log(product);
-	});
-
+    this.productService.updateProduct(this.product)
+      .subscribe();
   }
 
-  resibirIds(): void{
-    console.log(this.productService.retrieveIds());
-    let ids: Array<Number>=[]
-    ids = this.productService.retrieveIds();
-    console.log('Hola desde carrito de compra ids = '+ ids);
-  }
+   getCategories(): void {
+      //Recibe Observable
+      this.categoryService.getCategories().subscribe(categories => this.categories = categories);
+    }
+
+    asignarCategoria(category: Category): void{
+      this.product.category_id = category.id;
+      console.log(this.product.category_id);
+    }
+
+    
+
 
 }

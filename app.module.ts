@@ -17,6 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
 //import { BarChartDemoComponent } from './chart-product/chart-product.component';
 
 import { ProductService} from './products/product-service/product.service';
+import { CategoryService } from './products/product-service/category.service';
+
 import { ProductBillComponent } from './products/store/product-bill/product-bill.component';
 import { UserComponent } from './user/user.component';
 import { StockComponent } from './products/inventory/stock/stock.component';
@@ -26,6 +28,7 @@ import { StoreComponent } from './products/store/store.component';
 import { InventoryComponent } from './products/inventory/inventory.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
+import { CategoriesComponent } from './products/inventory/categories/categories.component';
 
 
 
@@ -48,6 +51,7 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
     InventoryComponent,
     SignInComponent,
     SignUpComponent,
+    CategoriesComponent,
     //BarChartDemoComponent
 
 
@@ -60,7 +64,7 @@ import { SignUpComponent } from './user/sign-up/sign-up.component';
     AppRoutingModule
     //ChartsModule
   ],
-  providers: [ProductService, Data],
+  providers: [ProductService, Data, CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

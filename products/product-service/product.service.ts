@@ -33,7 +33,7 @@ export class ProductService {
 
   /* GET: Captura el dato por ID, sino lo encuentra genera error 404 */
   getProduct(id: number): Observable<Product> {
-    const url = '${this.productsUrl}/${id}';
+    const url = this.productsUrl+'/'+id;
     return this.http.get<Product>(url).pipe(
       tap(_ => this.log('fetched product id=${id}')),
       catchError(this.handleError<Product>('getProduct id=${id}'))
@@ -42,7 +42,7 @@ export class ProductService {
 
     /** PUT: Actualiza los daots del producto del servidor*/
   updateProduct (product: Product): Observable<any> {
-    return this.http.put(this.productsUrl, product, httpOptions).pipe(
+    return this.http.put(this.productsUrl + '/' + product.id, product, httpOptions).pipe(
       tap(_ => this.log(`updated product id=${product.id}`)),
       catchError(this.handleError<any>('updateProduct'))
     );

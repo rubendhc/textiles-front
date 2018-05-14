@@ -14,6 +14,7 @@ import { Data } from '../../../data';
 export class StockComponent implements OnInit {
 
   products: Product[];
+  id: number = 0;
 
 
 
@@ -28,13 +29,10 @@ export class StockComponent implements OnInit {
     this.productService.getProducts().subscribe(products => this.products = products);
   }
 
-   sendId(): void{
-    //this.data.storage = [1,2,3,4,5,6,7,8,1012];
-  }
-
-  irAcarrito(): void{
-    this.router.navigate(['/shopping-list']);
+modificar(product: Product){
+  this.id = product.id;
+  this.router.navigate(['/products/inventory/stock/product-form/'+this.id]);
 }
-
+  
 
 }

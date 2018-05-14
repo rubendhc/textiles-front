@@ -1,0 +1,65 @@
+
+<form  #categoryForm="ngForm">
+      <div class="form-group">
+        <label for="code">Nombre</label>
+        <input type="text" class="form-control" id="name"
+               required
+               [(ngModel)]="category.name" name="name"
+               #name="ngModel">
+      </div>
+
+      <button [disabled]="!categoryForm.valid" type="submit" class="btn btn-primary" (click)="save(category)">Registrar</button>
+      
+</form> 
+
+
+
+
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3>Categorias de Productos</h3>
+
+    <div class="box-tools pull-right">
+    	
+      <!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+      
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="box-body">
+  <div class="table-responsive">
+    <table class="table no-margin">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Nombre</th>
+          <th>Accione</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories" >
+          <td>{{category.id}}</td>
+          <td>{{category.name}}</td>
+          <td>
+              
+              <button class="btn btn-success" (click)="modificar(category)" >Modificar</button>
+              <button class="btn btn-warning" (click)="delete(category)" >Eliminar</button>
+
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+  
+</div>
+
+
+
+
