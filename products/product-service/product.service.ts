@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Product } from '../product.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Data } from '../../data';
 
 
 //import { Observable } from 'rxjs/Observable';
@@ -10,7 +11,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'api_token': ''
+  })
 };
 
 @Injectable()
@@ -24,17 +28,20 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productsUrl)
+    httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
+    return this.http.get<Product[]>(this.productsUrl,httpOptions)
       .pipe(
         tap(products => this.log('fetchet products')),
         catchError(this.handleError('getProducts', []))
       ); //Captura Error
+
   }
 
   /* GET: Captura el dato por ID, sino lo encuentra genera error 404 */
   getProduct(id: number): Observable<Product> {
+    httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
     const url = this.productsUrl+'/'+id;
-    return this.http.get<Product>(url).pipe(
+    return this.http.get<Product>(url, httpOptions).pipe(
       tap(_ => this.log('fetched product id=${id}')),
       catchError(this.handleError<Product>('getProduct id=${id}'))
     );
@@ -42,6 +49,7 @@ export class ProductService {
 
     /** PUT: Actualiza los daots del producto del servidor*/
   updateProduct (product: Product): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
     return this.http.put(this.productsUrl + '/' + product.id, product, httpOptions).pipe(
       tap(_ => this.log(`updated product id=${product.id}`)),
       catchError(this.handleError<any>('updateProduct'))
@@ -50,6 +58,7 @@ export class ProductService {
 
     /** POST: Crea los datos del producto del servidor */
   addProduct (product: Product): Observable<Product> {
+    httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
     return this.http.post<Product>(this.productsUrl, product, httpOptions).pipe(
       tap((product: Product) => this.log('added product w/ id=${product.id}')),
       catchError(this.handleError<Product>('addProduct'))
@@ -58,6 +67,7 @@ export class ProductService {
 
     /** DELETE: Borra los datos del producto del servidor por ID */
   deleteProduct (product: Product | number): Observable<Product> {
+    httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
     const id = typeof product === 'number' ? product : product.id;
     const url = `${this.productsUrl}/${id}`;
 
@@ -103,17 +113,5 @@ export class ProductService {
 
   private log(message: string){}
 
-  myIds: Array<Number>=[];
-
-  saveIds(productsId: any): void{
-    this.myIds = productsId;
-     console.log(this.myIds);
-  }
-
-  retrieveIds(): Array<Number>{
-
-   
-    return this.myIds;
-  }
-
+ 
 }

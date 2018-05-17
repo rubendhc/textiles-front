@@ -10,7 +10,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Category } from './../inventory/categories/category.model';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'api_token': ''
+  })
 };
 
 
@@ -23,6 +26,8 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
    getCategories(): Observable<Category[]> {
+     console.log(localStorage.getItem('api_token'));
+     httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
     return this.http.get<Category[]>(this.categoriesUrl)
       .pipe(
         tap(categories => this.log('fetchet categories')),
@@ -32,6 +37,7 @@ export class CategoryService {
 
   /* GET: Captura el dato por ID, sino lo encuentra genera error 404 */
   getCategory(id: number): Observable<Category> {
+    httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
     const url = '${this.categoriesUrl}/${id}';
     return this.http.get<Category>(url).pipe(
       tap(_ => this.log('fetched category id=${id}')),
@@ -41,6 +47,7 @@ export class CategoryService {
 
     /** PUT: Actualiza los daots del categoryo del servidor*/
   updateCategory (category: Category): Observable<any> {
+    httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
     return this.http.put(this.categoriesUrl + '/' + category.id, category, httpOptions).pipe(
       tap(_ => this.log(`updated category id=${category.id}`)),
       catchError(this.handleError<any>('updateCategory'))
@@ -49,6 +56,7 @@ export class CategoryService {
 
     /** POST: Crea los datos del categoryo del servidor */
   addCategory (category: Category): Observable<Category> {
+    httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
     return this.http.post<Category>(this.categoriesUrl, category, httpOptions).pipe(
       tap((category: Category) => this.log('added category w/ id=${category.id}')),
       catchError(this.handleError<Category>('addCategory'))
@@ -57,6 +65,7 @@ export class CategoryService {
 
     /** DELETE: Borra los datos del categoryo del servidor por ID */
   deleteCategory (category: Category | number): Observable<Category> {
+    httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
     const id = typeof category === 'number' ? category : category.id;
     const url = `${this.categoriesUrl}/${id}`;
 

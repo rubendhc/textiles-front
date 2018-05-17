@@ -30,9 +30,43 @@
         <tr *ngFor="let product of products" >
           <td>{{product.code}}</td>
           <td>{{product.name}}</td>
-          <td>{{product.amount}}</td>
+          <td>
+            
+                 <nav aria-label="Page navigation example" >
+
+                      <ul class="pagination" >
+                        <li class="page-item">
+                            <span aria-hidden="true" 
+                                  class="page-link" 
+                                  aria-label="Previous" 
+                                  (click)="decrementAmount(product)">-</span>
+                        </li>
+
+                        <li class="page-item">
+                          <input (keyup)="onkey($event, product)" 
+                                 id="amount"
+                                 class="page-link"  
+                                 name="amount" 
+                                 value={{product.amount}} ></li>
+                        <li class="page-item">
+                            <span aria-hidden="true" 
+                                  class="page-link" 
+                                  aria-label="Next"
+                                  (click)="incrementAmount(product)">+</span>
+                      
+                        </li>
+                      </ul>
+                    </nav>
+
+
+          </td>
           <td>{{product.price}}</td>
-          <td><button class="btn btn-success" (click)="modificar(product)" >Modificar</button></td>
+          <td>
+            <button class="btn btn-success" (click)="modificar(product)" >Modificar</button>
+
+              <button class="btn btn-warning" (click)="delete(product)" >Eliminar</button>
+
+          </td>
         </tr>
       </tbody>
     </table>

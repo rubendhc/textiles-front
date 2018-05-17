@@ -29,6 +29,8 @@ import { InventoryComponent } from './products/inventory/inventory.component';
 import { SignInComponent } from './user/sign-in/sign-in.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { CategoriesComponent } from './products/inventory/categories/categories.component';
+import { AuthGuard } from './auth/auth.guard';
+//import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 
 
@@ -52,6 +54,7 @@ import { CategoriesComponent } from './products/inventory/categories/categories.
     SignInComponent,
     SignUpComponent,
     CategoriesComponent,
+  //  BarChartComponent,
     //BarChartDemoComponent
 
 
@@ -64,7 +67,7 @@ import { CategoriesComponent } from './products/inventory/categories/categories.
     AppRoutingModule
     //ChartsModule
   ],
-  providers: [ProductService, Data, CategoryService],
+  providers: [ProductService, Data, CategoryService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

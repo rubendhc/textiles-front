@@ -14,6 +14,7 @@ import { Data } from '../../../data';
 export class StockComponent implements OnInit {
 
   products: Product[];
+  productSelected: Product;
   id: number = 0;
 
 
@@ -30,9 +31,52 @@ export class StockComponent implements OnInit {
   }
 
 modificar(product: Product){
-  this.id = product.id;
-  this.router.navigate(['/products/inventory/stock/product-form/'+this.id]);
+  this.data.product = product;
+  this.router.navigate(['/products/inventory/product-form/']);
 }
+
+ incrementAmount(product: Product): void {
+    this.productSelected = product;
+    this.productSelected.amount++;
+    this.update(product);
+    //this.calculateTotal(this.productSelected);
+  }
+
+  decrementAmount(product: Product): void {
+
+    if(this.productSelected.amount >= 1){
+      this.productSelected.amount--;
+      this.update(product);
+      //this.calculateTotal(this.productSelected);
+    }
+  }
+onkey(event: any, product: Product){
+    let amount = event.target.value;
+    if(amount >= 0){
+      this.productSelected = product;
+      this.productSelected.amount= amount;
+      this.update(product);
+      //this.calculateTotal(this.productSelected);
+      //console.log(this.productSelected);  
+    }else{
+      this.productSelected = product;
+      this.productSelected.amount= 0;
+      this.update(product);
+    }
+    
+  }
+
+  delete(product: Product): void {
+      this.products = this.products.filter(h => h !== product);
+      this.productService.deleteProduct(product).subscribe();
+    }
+
+    update(product: Product): void {
+      console.log(product);
+      this.productService.updateProduct(product)
+      .subscribe();
+  }
+
   
 
 }

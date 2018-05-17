@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { Data } from '../../../../data';
 
 import { Product } from '../../../product.model';
 import { Category } from '../../categories/category.model';
@@ -17,6 +18,7 @@ import { CategoryService } from '../../../product-service/category.service';
 
 export class ProductFormComponent implements OnInit {
 
+  products: Product[];
   product= new Product();
   categories: Category[];
   enableCreate: boolean = true;
@@ -27,16 +29,16 @@ export class ProductFormComponent implements OnInit {
 
   constructor( private productService: ProductService, 
                private route: ActivatedRoute,
-               private categoryService: CategoryService) { }
+               private categoryService: CategoryService,
+               private data: Data) { }
 
   ngOnInit() {
   	//this.getProducts();
     //this.product = this.productId;
-    this.getProduct();
-    this. getCategories();
-
-    const id = +this.route.snapshot.paramMap.get('id');
-    console.log(id);
+    this.product = this.data.product;
+    this.getCategories();
+    console.log(this.product);
+    this.seleccionarOperacion()
   }
 
   
@@ -46,13 +48,33 @@ export class ProductFormComponent implements OnInit {
       .subscribe(product => this.product = product);
   }
 
+  save(product: Product): void{
+     if(this.enableCreate){
+         this.add(product);
+     }else{
+       this.update(product);
+       this.enableCreate = true;
+     }
+
+     this.product = new Product()
+     this.data.product = new Product()
+  }
+
 
  
-  save(product: Product): void {
+  update(product: Product): void {
     console.log(product);
     this.productService.updateProduct(this.product)
       .subscribe();
   }
+
+   add(product: Product){
+    if (!product) { return; }
+      this.productService.addProduct(product)
+        .subscribe();
+  }
+
+  
 
    getCategories(): void {
       //Recibe Observable
@@ -64,7 +86,15 @@ export class ProductFormComponent implements OnInit {
       console.log(this.product.category_id);
     }
 
-    
+    seleccionarOperacion(){
+      if(this.product.id){
+        this.enableCreate = false;
+        console.log('true on selecOp');
+      }else{
+        this.enableCreate = true;
+        console.log('false on selecOp');
+      }
+    }
 
 
 }

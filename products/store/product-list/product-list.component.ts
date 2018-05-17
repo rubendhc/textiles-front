@@ -73,10 +73,7 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts().subscribe(products => this.products = products);
   }
 
-  sendId(){
-    this.productService.saveIds([1,2,3,4,5]);
-  }
-
+ 
 
   productExist(productIn: Product, products: Array<Product>): boolean{
 

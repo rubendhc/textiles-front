@@ -14,16 +14,18 @@
   import { InventoryComponent } from './products/inventory/inventory.component';
   import { Product } from './products/product.model';
   import { CategoriesComponent } from './products/inventory/categories/categories.component';
+  
 
 
   import { UserComponent } from './user/user.component';
   import { SignInComponent } from './user/sign-in/sign-in.component';
   import { SignUpComponent } from './user/sign-up/sign-up.component';
-
+  import { AuthGuard } from './auth/auth.guard';
+ 
 
   const routes: Routes = [ 
                             //Rutas componete products (store y inventory)
-                           { path: 'products', component: ProductsComponent, 
+                           { path: 'products', component: ProductsComponent,canActivate:[AuthGuard], 
                              children: 
                              [
                                    { path: 'store', component: StoreComponent, 
@@ -39,10 +41,11 @@
                                    { path: 'inventory', component: InventoryComponent, 
                                        children: [
                                        {path: 'stock', component: StockComponent},
-                                       {path: 'product-form/:id', component: ProductFormComponent},
-                                       {path: 'category', component: CategoriesComponent},
+                                       {path: 'product-form', component: ProductFormComponent},
+                                       {path: 'categories', component: CategoriesComponent},
                                        //{path: 'product-detail', component: ProductDetailComponent},
                                    ] },
+                                  
 
                              ] },
                            
