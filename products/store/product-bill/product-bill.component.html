@@ -1,11 +1,51 @@
 <!-- <app-shopping-list (AddedBill)="receiveListProduct($event)"> -->
-	
+
+<form>
+  <label id="custom_id" name="custom_id">Identificacion de cliente</label>
+  <input #customId class="form-control" name="custom_id">
+
+  <label id="custom_name">Nombre Cliente</label>
+  <input #customName class="form-control" name="custom_name"  placeholder="nombre de cliente">
+
+  <select #status>
+    <option>---</option>
+    <option>Aprobado</option>
+    <option>Anulado</option>
+    <option>Pendiente</option>
+  </select>
+
+  <select #modoPay>
+    <option>---</option>
+    <option>Crédito</option>
+    <option>Débito</option>
+    <option>Efectivo</option>
+  </select>
+</form>	
+
+<table>
+  <tr>
+    <th>cantidad</th>
+    <th>nombre</th>
+    <th>total</th>
+  </tr>
+  <tr *ngFor="let product of shopList" >
+    <td>{{product.cantProduct}}</td>
+    <td>{{product.name}}</td>
+    <td>{{product.totalPrice}}</td>
+  </tr>
+
+  <tr>
+  	<td></td>
+  	<td>Total Compra</td>
+  	<td>{{total}}</td>
+  </tr>
+</table>
+
+<button (click)="addBill(customId.value, 
+                         customName.value, 
+                         modoPay.value,
+                         status.value)">Prueba</button>
 
 
 
-
-<div class="row">
-	<div class="col-xs-12" *ngFor="let product of shopList">
-		{{ product.cantProduct }} x {{ product.name}}
-	</div>		
-</div>
+                         

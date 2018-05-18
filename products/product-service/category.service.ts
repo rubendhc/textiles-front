@@ -21,6 +21,7 @@ const httpOptions = {
 @Injectable()
 export class CategoryService {
 
+  //private   categoriesUrl = 'http://192.168.0.28/textiles-back/public/index.php/categories';
   private categoriesUrl = 'http://localhost:8000/categories';
 
   constructor(private http: HttpClient) { }
@@ -28,7 +29,7 @@ export class CategoryService {
    getCategories(): Observable<Category[]> {
      console.log(localStorage.getItem('api_token'));
      httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
-    return this.http.get<Category[]>(this.categoriesUrl)
+    return this.http.get<Category[]>(this.categoriesUrl, httpOptions)
       .pipe(
         tap(categories => this.log('fetchet categories')),
         catchError(this.handleError('getCategories', []))

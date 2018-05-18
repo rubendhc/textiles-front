@@ -35,6 +35,7 @@ onSubmit(user: User){
 	
 	this.userService.userAuth2(user).subscribe((data:any)=>{
 		localStorage.setItem('api_token', data.api_token);
+		localStorage.setItem('id_user', data.id);
 		this.router.navigate(['/products']);
 		this.data.currentUserId = data.id;
 		//console.log(data.api_token);

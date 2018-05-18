@@ -22,13 +22,14 @@ export class ProductService {
 
   lista: Array<number>=[];
 
-  //private productsUrl = 'http://192.168.0.27/testBackend/public/index.php/products';
+  //private productsUrl = 'http://192.168.0.28/textiles-back/public/index.php/products';
   private productsUrl = 'http://localhost:8000/products';
 
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
     httpOptions.headers = httpOptions.headers.set('api_token', localStorage.getItem('api_token'));
+    console.log(httpOptions.headers);
     return this.http.get<Product[]>(this.productsUrl,httpOptions)
       .pipe(
         tap(products => this.log('fetchet products')),

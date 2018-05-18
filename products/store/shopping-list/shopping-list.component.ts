@@ -1,11 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { Product } from '../../../products/product.model';
 import { ProductService } from '../../../products/product-service/product.service';
 import { Data } from '../../../data';
-
+import { BillService } from '../../product-service/bill.service';
+import { Bill } from '../product-bill/bill.model';
 
 @Component({
   selector: 'app-shopping-list',
@@ -16,12 +18,17 @@ export class ShoppingListComponent implements OnInit {
   
   product: Product;
   productSelected: Product;
+  bill: Bill = new Bill();
   
 
   productShop: Array<Product>;
   //@Output() AddedBill = new EventEmitter<Array<Product>>();
   
-  constructor(private route: ActivatedRoute, private productService: ProductService, private data: Data) { 
+  constructor(  private route: ActivatedRoute, 
+                private productService: ProductService,
+                private data: Data,
+                private router: Router,
+                private billService: BillService) { 
      
   }
 
@@ -38,6 +45,7 @@ export class ShoppingListComponent implements OnInit {
      
      // console.log(this.data.products);
      this.productShop = this.data.products;
+     this.bill.user_id = parseInt(localStorage.getItem('id_user'));
 
   }
 
@@ -90,21 +98,14 @@ export class ShoppingListComponent implements OnInit {
   //   this.AddedBill.emit(this.productShop);
   // }
 
-  stringToArry(ids: string): number[]{
-
-
-      let lista: Array<number>;
-     
-
-      for (let id of ids) {
-        let n = parseInt(id)
-         lista.push(n);    
-      }
-
-
-      return lista;
-
+  sendToBill():void{
+    this.billService.addBill(this.bill).subscribe();
+    console.log(this.bill);
+    this.data.products = this.productShop;
+    this.router.navigate(['/products/store/bill']);
   }
+
+  
 
   
 }
