@@ -16,8 +16,9 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-  
-  userUrl = 'http://localhost:8000/users'; 
+
+  //private userUrl = 'http://192.168.0.28/textiles-back/public/index.php/users';
+  private userUrl = 'http://localhost:8000/users'; 
 
   constructor(private http: HttpClient) { }
 

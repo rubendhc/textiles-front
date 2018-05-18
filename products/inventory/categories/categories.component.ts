@@ -62,9 +62,9 @@
   add(category: Category){
     if (!category) { return; }
       this.categoryService.addCategory(category)
-        .subscribe(category => {
-          this.categories.push(category);
-        });
+        .subscribe();
+        this.getCategories();
+        //console.log(this.categories);
   }
 
   }

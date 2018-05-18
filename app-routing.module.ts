@@ -33,6 +33,7 @@
                                        {path: 'product-list', component: ProductListComponent},
                                        {path: 'shopping-list', component: ShoppingListComponent},
                                        {path: 'product-detail', component: ProductDetailComponent},
+                                       {path: 'bill', component: ProductBillComponent},
                                    ] },
 
                                    { path: 'product-bill', component: ProductBillComponent },
