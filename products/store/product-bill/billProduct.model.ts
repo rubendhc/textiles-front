@@ -1,3 +1,5 @@
+import { Product } from '../../product.model';
+
 export class BillProduct {
 
 	   public id: number;
@@ -5,6 +7,8 @@ export class BillProduct {
 	   public amount: number;
 	   public bill_id: number;
 	   public product_id: number;
+
+	   public product: Product;
 	   
 	   constructor(){}
 }

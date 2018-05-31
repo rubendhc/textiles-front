@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../product.model';
 import { Bill } from './bill.model';
 import { BillService } from '../../product-service/bill.service';
+import { SaleService } from '../../product-service/sale.service';
 import { Data  } from '../../../data';
 import { BillProduct } from '../product-bill/billProduct.model'; 
 
@@ -26,12 +27,13 @@ export class ProductBillComponent implements OnInit {
 
 
   constructor(private data: Data,
-              private billService: BillService) { }
+              private billService: BillService,
+              private saleService: SaleService) { }
 
   ngOnInit() {
     this.shopList = this.data.products;
     this.getTotal();
-    this.getBilId();
+    //this.getBilId();
     
 
   }
@@ -53,7 +55,7 @@ export class ProductBillComponent implements OnInit {
     this.billService.getBillTest().subscribe(bill => {
           this.idBill = bill.id;
           this.bill = bill;
-          console.log(this.idBill, "piedad");
+          
       });  
   }
 /*
@@ -73,9 +75,18 @@ export class ProductBillComponent implements OnInit {
     this.bill.typePay = typePay;
     this.bill.custom = customName;
     this.bill.custom_id = customId;
+
+
     if (this.shopList.length > 0) {
-      this.billService.updateBill(this.bill).subscribe(bill=> this.bill = bill);
-       this.productRegister();
+      this.productRegister();
+      console.log(this.bill.products);
+
+      this.billService.addBill(this.bill).subscribe(bill=>this.v = bill);
+      console.log('response', this.v);
+
+
+      /*this.billService.updateBill(this.bill).subscribe(bill=> this.bill = bill);
+       this.productRegister();*/
     }
     
     this.shopList = [];
@@ -90,17 +101,29 @@ export class ProductBillComponent implements OnInit {
 
   }
 
-  productRegister():void {
-    console.log(this.bill.id);
+
+   productRegister():void {
+   // console.log(this.bill.id);
+    for (let product of this.shopList ) {
+     this.bill.products.push(product);
+
+    }
+
+
+
+  }
+
+ /* productRegister():void {
+   // console.log(this.bill.id);
     for (let product of this.shopList ) {
       this.pivot.total = product.totalPrice;
       this.pivot.amount = product.cantProduct;
       this.pivot.bill_id = this.bill.id;
       this.pivot.product_id = product.id;
-      this.billService.addBillProduct(this.pivot).subscribe();
+      this.saleService.addBillProduct(this.pivot).subscribe();
 
     }
 
-  }
+  }*/
 
 }

@@ -7,6 +7,7 @@
   <label id="custom_name">Nombre Cliente</label>
   <input #customName class="form-control" name="custom_name"  placeholder="nombre de cliente">
 
+<span>Estado de compra</span>
   <select #status>
     <option>---</option>
     <option>Aprobado</option>
@@ -14,6 +15,7 @@
     <option>Pendiente</option>
   </select>
 
+<span>Modo de pago</span>
   <select #modoPay>
     <option>---</option>
     <option>Crédito</option>
@@ -41,10 +43,10 @@
   </tr>
 </table>
 
-<button (click)="addBill(customId.value, 
+<button  (click)="addBill(customId.value, 
                          customName.value, 
                          modoPay.value,
-                         status.value)">Prueba</button>
+                         status.value)">Efectuar compra</button>
 
 
 

@@ -100,7 +100,7 @@ export class ShoppingListComponent implements OnInit {
 
   sendToBill():void{
     this.billService.addBill(this.bill).subscribe();
-    console.log(this.bill);
+    //console.log(this.bill);
     this.data.products = this.productShop;
     this.router.navigate(['/products/store/bill']);
   }

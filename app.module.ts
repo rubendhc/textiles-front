@@ -30,6 +30,9 @@ import { SignInComponent } from './user/sign-in/sign-in.component';
 import { SignUpComponent } from './user/sign-up/sign-up.component';
 import { CategoriesComponent } from './products/inventory/categories/categories.component';
 import { AuthGuard } from './auth/auth.guard';
+import { SalesComponent } from './products/store/sales/sales.component';
+import { BillService } from './products/product-service/bill.service';
+import { SaleService } from './products/product-service/sale.service';
 //import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 
@@ -54,6 +57,7 @@ import { AuthGuard } from './auth/auth.guard';
     SignInComponent,
     SignUpComponent,
     CategoriesComponent,
+    SalesComponent,
   //  BarChartComponent,
     //BarChartDemoComponent
 
@@ -67,7 +71,13 @@ import { AuthGuard } from './auth/auth.guard';
     AppRoutingModule
     //ChartsModule
   ],
-  providers: [ProductService, Data, CategoryService, AuthGuard],
+  providers: [  ProductService, 
+                Data, 
+                CategoryService,
+                BillService, 
+                AuthGuard,
+                SaleService,],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
