@@ -1,0 +1,51 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3>Ventas</h3>
+
+    <div class="box-tools pull-right">
+    	
+      <!--<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+      
+    </div>
+    
+  </div>
+  
+</div>
+
+<div class="box-body">
+  <div class="table-responsive">
+    <table class="table no-margin">
+      <thead>
+        <tr>
+          <th>Código de venta</th>
+          <th>Nombre producto</th>
+          <th>Cantidad vendidad</th>
+          <th>Precio total</th>
+          <th>Fecha de venta</th>
+          <th>Accion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sale of sales" >
+          <td>{{sale.id}}</td>
+          <td>{{sale.product.name}}</td>
+          <td>{{sale.amount}}</td>
+          <td>{{sale.total}}</td>
+          <td>{{sale.created_at}}</td>
+          <td>
+           
+           <button type="button" class="btn btn-secondary"> Consultar Factura</button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+  
+</div>
+
+
+<!--<app-sale-form > </app-sale-form>-->

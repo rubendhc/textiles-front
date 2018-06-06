@@ -14,6 +14,7 @@
   import { InventoryComponent } from './products/inventory/inventory.component';
   import { Product } from './products/product.model';
   import { CategoriesComponent } from './products/inventory/categories/categories.component';
+  import { SalesComponent } from './products/store/sales/sales.component';
   
 
 
@@ -34,6 +35,7 @@
                                        {path: 'shopping-list', component: ShoppingListComponent},
                                        {path: 'product-detail', component: ProductDetailComponent},
                                        {path: 'bill', component: ProductBillComponent},
+                                       {path: 'sales', component: SalesComponent},
                                    ] },
 
                                    { path: 'product-bill', component: ProductBillComponent },

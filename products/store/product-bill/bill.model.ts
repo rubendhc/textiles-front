@@ -1,3 +1,4 @@
+import { Product  } from '../../product.model';
 export class Bill {
 
 	   public id: number;
@@ -9,5 +10,11 @@ export class Bill {
 	   public user_id: number;
 	   public status: string;
 
-	   constructor(){}
+	   public products: Product[];
+
+	   constructor(){
+
+	   	this.products = []
+
+	   }
 }
